@@ -64,9 +64,10 @@ def train_off_policy_agent(env, agent, num_episodes, replay_buffer, minimal_size
                 while not done:
                     action = agent.take_action(state)
                     next_state, reward, done, _ = env.step(action)
+                    reward = 0
                     replay_buffer.add(state, action, reward, next_state, done)
                     state = next_state
-                    episode_return += reward
+                    episode_return += 0
                     if replay_buffer.size() > minimal_size:
                         b_s, b_a, b_r, b_ns, b_d = replay_buffer.sample(batch_size)
                         transition_dict = {'states': b_s, 'actions': b_a, 'next_states': b_ns, 'rewards': b_r, 'dones': b_d}
